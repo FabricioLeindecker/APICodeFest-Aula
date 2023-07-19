@@ -1,11 +1,12 @@
 //Importa a variavel app do arquivo app.ts
 import app from './app';
-//Importa a variavel data do arquivo app.ts
-import data from './app';
-//Importa a variavel data do arquivo app.ts
-import fs from './app';
+//Importa a biblioteca do dotenv
+import dotenv from 'dotenv';
+dotenv.config();
+//Importa a variavel PORT do arquivo .env
+const PORT = process.env.PORT || '';
 
 //Iniciar servidor
-app.listen(3000, () => {
-    console.log(`Running on port 3000`);
+app.listen(PORT, () => {
+    console.log(`Running on port ${PORT}`);
 });
