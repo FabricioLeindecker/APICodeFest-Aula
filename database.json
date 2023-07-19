@@ -1,7 +1,1 @@
-[
-    {
-        "nome":"Renato Gaucho",
-        "idade":"37",
-        "cidade":"Canoas"
-    }
-]
+{"0":{"username":"Renato Gaúcho","email":"qualquer@coisa.com","password":"qualquer"},"1":{"username":"testeEditado","email":"testado@testado.com","senha":"aleatóriamente"},"2":{"username":"maisteste","email":"teste@teste.com","senha":"aleatório"}}
