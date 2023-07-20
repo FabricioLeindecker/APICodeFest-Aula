@@ -21,10 +21,10 @@ router.post('/api/users', (req: any, res: any) => {
     //Analisa string JSON e transforma em um objeto JavaScript
     let content = JSON.parse(jsonDataBase);
 
-    //Método de acrescentar UM iD sem substituir o ultimo
+    //Método de acrescentar um iD sem substituir o ultimo ID após utilizar o delete
     //Verifica a quantidade maxima de objetos na base de dados
-    const maxId = Math.max(...Object.keys(content).map(key => parseInt(key)));
-     //Atribui a quantidade máxima de IDs
+    const maxId = Math.max(...Object.keys(content).map(key => parseInt(key, 10)));
+    //Atribui a quantidade máxima de IDs
     const newId = maxId + 1;
     //Cria uma nova chave de objeto ja somado +1 ao total de objetos
     content[newId] = req.body;
@@ -80,4 +80,5 @@ router.delete('/api/user/:id', (req: any, res: any) => {
     res.send(`User with id ${userId} has been deleted`);
 });
 
+//Exporta o router
 export default router;
