@@ -4,7 +4,7 @@ import app from './app';
 import dotenv from 'dotenv';
 dotenv.config();
 //Importa a variavel PORT do arquivo .env
-const PORT = process.env.PORT || '';
+const PORT = process.env.PORT || 3333;
 
 //Iniciar servidor
 app.listen(PORT, () => {

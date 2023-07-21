@@ -1,21 +1,17 @@
 //Importar o pacote express para criar o servidor
 const express = require("express");
-//Importar o pacote File System para manipular arquivos
-const fs = require('fs');
+
 //Importa router do express
 const router = express.Router();
-//Importar banco de dados de extensão .json
-const data: string = './database.json';
+
+//Importa o userController
+import userController from "../controller/userController";
 
 //Listar usuários
-router.get('/api/users', (req: any, res: any) => {
-    const jsonData = fs.readFileSync(data);
-    //Analisa string JSON e trasnsforma em um objeto Javascript
-    res.send(JSON.parse(jsonData));
-});
+router.get('/users', userController.listUsers);
 
 //Cadastrar Usuários
-router.post('/api/users', (req: any, res: any) => {
+router.post('/users', (req: any, res: any) => {
     //Atribui a base de dados em nova variavel
     const jsonDataBase = fs.readFileSync(data);
     //Analisa string JSON e transforma em um objeto JavaScript
@@ -23,9 +19,16 @@ router.post('/api/users', (req: any, res: any) => {
 
     //Método de acrescentar um iD sem substituir o ultimo ID após utilizar o delete
     //Verifica a quantidade maxima de objetos na base de dados
-    const maxId = Math.max(...Object.keys(content).map(key => parseInt(key, 10)));
-    //Atribui a quantidade máxima de IDs
-    const newId = maxId + 1;
+    let maxId: number = Math.max(...Object.keys(content).map(key => parseInt(key, 10)));
+    //Atribui a quantidade máxima de IDs 
+    let newId: number;
+
+    if (Object.keys(content).length === 0) {
+        newId = 0;
+    } else {
+        newId = maxId + 1;
+    };
+
     //Cria uma nova chave de objeto ja somado +1 ao total de objetos
     content[newId] = req.body;
 
@@ -45,7 +48,7 @@ router.post('/api/users', (req: any, res: any) => {
 });
 
 //Atualizar Usuário
-router.put('/api/user/:id', (req: any, res: any) => {
+router.put('/user/:id', (req: any, res: any) => {
     //Atribui a base de dados em nova variavel
     const jsonDataBase = fs.readFileSync(data);
     //recupera o id enviado por parametro
@@ -63,7 +66,7 @@ router.put('/api/user/:id', (req: any, res: any) => {
 });
 
 //Deletar Usuário
-router.delete('/api/user/:id', (req: any, res: any) => {
+router.delete('/user/:id', (req: any, res: any) => {
     //Atribui a base de dados em nova variavel
     const jsonDataBase = fs.readFileSync(data);
     //Recupera o id enviado por parametro
