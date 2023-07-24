@@ -25,12 +25,20 @@ async function addUsers(req: Request, res: Response) {
     let newId: number;
     //Se o arquivo database.js estiver vazio ele inicia com o ID 0 (zero)
     if (Object.keys(content).length === 0) {
-        newId = 0;
-    } else {
-        newId = maxId + 1;
+        maxId = - 1;
     };
+    
+    // Obtém o array de usuários do corpo da requisição
+    const usersToAdd = req.body;
+
+    // Adiciona cada usuário ao conteúdo com um novo ID
+    usersToAdd.forEach((user: any) => {
+        maxId++; // Incrementa o maxId para obter o novo ID para o usuário atual
+        content[maxId] = user; // Adiciona o usuário com o novo ID ao conteúdo
+    });
+    
     //Cria uma nova chave de objeto ja somado +1 ao total de objetos
-    content[newId] = req.body;
+    //content[newId] = req.body;
 
     /* Método criado em aula 
     //Verifica a quantidade de objetos na base de dados
