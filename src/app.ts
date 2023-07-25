@@ -11,5 +11,3 @@ app.use('/api', userRouter);
 
 //Exporta a variavel app
 export default app;
-
-

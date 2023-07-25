@@ -21,31 +21,27 @@ async function addUsers(req: Request, res: Response) {
     //Método de acrescentar um iD sem substituir o ultimo ID após utilizar o delete
     //Verifica a quantidade maxima de objetos na base de dados
     let maxId: number = Math.max(...Object.keys(content).map(key => parseInt(key, 10)));
-    //Atribui a quantidade máxima de IDs 
-    let newId: number;
+
     //Se o arquivo database.js estiver vazio ele inicia com o ID 0 (zero)
     if (Object.keys(content).length === 0) {
-        maxId = - 1;
+        maxId = -1;
     };
-    
+
     // Obtém o array de usuários do corpo da requisição
-    const usersToAdd = req.body;
+    const usersToAdd: any = req.body;
 
     // Adiciona cada usuário ao conteúdo com um novo ID
-    usersToAdd.forEach((user: any) => {
+    for (let i = 0; i < usersToAdd.length; i++) {
         maxId++; // Incrementa o maxId para obter o novo ID para o usuário atual
-        content[maxId] = user; // Adiciona o usuário com o novo ID ao conteúdo
-    });
-    
-    //Cria uma nova chave de objeto ja somado +1 ao total de objetos
-    //content[newId] = req.body;
+        content[maxId] = usersToAdd[i]; // Adiciona o usuário com o novo ID ao conteúdo
+    };
 
     /* Método criado em aula 
-    //Verifica a quantidade de objetos na base de dados
-    let index: number = Object.keys(content).length;
-    //Cria uma nova chave de objeto somando +1 do total de objetos
-    content[index++] = req.body;
-    */
+   //Verifica a quantidade de objetos na base de dados
+   let index: number = Object.keys(content).length;
+   //Cria uma nova chave de objeto somando +1 do total de objetos
+   content[index++] = req.body;
+   */
 
     //Analisa um objeto em JavaScript e transforma em uma string JSON
     const values = JSON.stringify(content);
@@ -56,7 +52,7 @@ async function addUsers(req: Request, res: Response) {
 };
 
 //Cria uma função asyncrona para editar usuários
-async function editUsers(req: Request, res:Response) {
+async function editUsers(req: Request, res: Response) {
     //Atribui a base de dados em nova variavel
     const jsonDataBase = fs.readFileSync(data);
     //recupera o id enviado por parametro
@@ -71,7 +67,7 @@ async function editUsers(req: Request, res:Response) {
     fs.writeFileSync(data, values);
     //Retorno amigável para o usuário que chamou o endpoint
     res.send(`User with id ${userId} has been updated`)
-}; 
+};
 
 //Cria uma função asyncrona para deletar usuários
 async function delUsers(req: Request, res: Response) {
@@ -91,9 +87,9 @@ async function delUsers(req: Request, res: Response) {
     res.send(`User with id ${userId} has been deleted`);
 }
 
- export default {
+export default {
     listUsers,
-    addUsers, 
+    addUsers,
     editUsers,
     delUsers
 }
