@@ -13,7 +13,7 @@ router.post('/users', userController.createUser);
 // //Atualizar Usuário
 router.put('/user/:id', userController.editUser);
 // //Deletar Usuário
-// router.delete('/user/:id', userController.delUsers);
+router.delete('/user/:id', userController.delUser);
 
 //Exporta o router
 export default router;
